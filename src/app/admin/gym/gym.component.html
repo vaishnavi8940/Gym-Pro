@@ -1,0 +1,127 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>GYMS</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a>Home</a></li>
+        <li class="breadcrumb-item active">Gyms</li>
+      </ol>
+    </nav>
+  </div>
+  <section class="section dashboard">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <form class="row g-3" [formGroup]="formdata" (ngSubmit)="Save(formdata.value)">
+              <div class="col-12">
+                <label for="inputNanme4" class="form-label">Name</label>&nbsp; &nbsp;
+                <span class="text-danger" *ngIf="formdata.controls.name.touched && formdata.controls.name.invalid">Please Enter Name</span>
+                <input type="text" class="form-control" formControlName="name" >
+              </div>
+              <div class="col-12">
+                <label for="inputNanme4" class="form-label">Address</label>&nbsp; &nbsp;
+                <span *ngIf="formdata.controls.address.touched && formdata.controls.address.invalid" class="text-danger small">Please Enter Address</span>
+                <input type="text" class="form-control" formControlName="address" >
+              </div>
+              <div class="col-4">
+                <label for="inputEmail4" class="form-label">city</label>&nbsp; &nbsp;
+                <span class="text-danger" *ngIf="formdata.controls.city.touched && formdata.controls.city.invalid">Please Enter City</span>
+                <input type="text" class="form-control" formControlName="city" >
+              </div>
+              <div class="col-4">
+                <label for="inputEmail4" class="form-label">Mobile No.</label>&nbsp; &nbsp;
+                <span class="text-danger" *ngIf="formdata.controls.mobileno.touched && formdata.controls.mobileno.invalid">Please Enter Mobile no.</span>
+                <input type="text" class="form-control" formControlName="mobileno" >
+              </div>
+              <div class="col-4">
+                <label for="inputEmail4" class="form-label">Email</label>&nbsp; &nbsp;
+                <span class="text-danger" *ngIf="formdata.controls.email.touched && formdata.controls.email.invalid">Please Enter Email</span>
+                <input type="email" class="form-control" formControlName="email" >
+              </div>
+              <div class="col-8">
+                <label for="inputPassword4" class="form-label mb-3">Password</label>&nbsp; &nbsp;
+                <span class="text-danger" *ngIf="formdata.controls.password.touched && formdata.controls.password.invalid">Please Enter Password</span>
+                <input type="password" class="form-control" formControlName="password">
+              </div>
+              <!-- <div class="col-6">
+                <label for="inputEmail4" class="form-label">Registration Date</label>&nbsp; &nbsp;
+                <span class="text-danger" *ngIf="formdata.controls.registrationdate.touched && formdata.controls.registrationdate.invalid">Please Select date</span>
+                <input type="date" class="form-control" formControlName="registrationdate" >
+              </div> -->
+              <div class="col-4">
+                <label for="inputEmail4" class="form-label">Registration Date</label>&nbsp; &nbsp;<br>
+                <span class="text-danger" *ngIf="formdata.controls.registrationdate.touched && formdata.controls.registrationdate.invalid">Please Select date</span>
+                <!-- <mat-form-field style="margin-left: 80px;">
+                  <input matInput [matDatepicker]="picker" formControlName="registrationdate" placeholder="Choose a date">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field> -->
+
+                <mat-form-field appearance="fill" class="ms-5">
+                  <mat-label>Start Date</mat-label>
+                  <input matInput [matDatepicker]="startDatePicker" placeholder="Choose a date" formControlName="registrationdate">
+                  <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                  <mat-datepicker #startDatePicker></mat-datepicker>
+                </mat-form-field>
+
+              </div>
+              <div class="col-6">
+                 <label for="inputEmail4" class="form-label">Verified</label>&nbsp; &nbsp;
+                 <input type="checkbox" checked  formControlName="verified" class="form-check-inline mt-3" >
+              </div>
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary" [disabled]="!formdata.valid">Submit</button> &nbsp; &nbsp;
+                <span class="btn btn-secondary" (click)="load()">Reset</span>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="gototop js-top">
+          <a href="#" class="js-gotop"><i class="ion-ios-arrow-up"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Action</th>
+              <th scope="col">No</th>
+              <th scope="col">GYM Id</th>
+              <th scope="col">Name</th>
+              <th scope="col">Address</th>
+              <th scope="col">City</th>
+              <th scope="col">Mobileno</th>
+              <th scope="col">Email</th>
+              <th scope="col">Password</th>
+              <th scope="col">Registration Date</th>
+              <th scope="col">Verified</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let gym of gyms; let i = index">
+              <td>
+                  <button class="btn btn-danger btn-sm mb-2" (click)="Delete(gym.id)">Delete</button><br>
+                   <button class="btn btn-primary btn-sm" (click)="Edit(gym.id)">Edit</button>
+              </td>
+              <td>{{i + 1}}</td>
+              <td class="text-center">{{gym.id}}</td>
+              <td>{{gym.name}}</td>
+              <td>{{gym.address}}</td>
+              <td>{{gym.city}}</td>
+              <td>{{gym.mobileno}}</td>
+              <td>{{gym.email}}</td>
+              <td>{{gym.password}}</td>
+              <td>{{gym.registrationdate | date}}</td>
+              <td>{{gym.verified }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>

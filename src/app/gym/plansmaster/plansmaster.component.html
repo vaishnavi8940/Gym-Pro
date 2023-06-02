@@ -1,0 +1,103 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>Plans</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a>Home</a></li>
+        <li class="breadcrumb-item active">Plans</li>
+      </ol>
+    </nav>
+  </div>
+  <section class="section dashboard">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <form class="row g-3" [formGroup]="formdata" (ngSubmit)="Save(formdata.value)">
+              <div class="col-6">
+                <label for="inputNanme4" class="form-label">Gym</label>&nbsp; &nbsp;
+                <span class="text-danger" *ngIf="formdata.controls.gymid.touched && formdata.controls.gymid.invalid">Please SELECT</span>
+                <select class="form-control form-select" formControlName="gymid">
+                  <option value="0">--SELECT--</option>
+                  <option *ngFor="let g of gym" value="{{ g.id }}">{{ g.name }}</option>
+                </select>
+              </div>
+              <div class="col-6">
+                <label for="inputNanme4" class="form-label">Name</label>&nbsp; &nbsp;
+                <span class="text-danger" *ngIf="formdata.controls.name.touched && formdata.controls.name.invalid">Please Enter Name</span>
+                <input type="text" class="form-control" formControlName="name" >
+              </div>
+              <div class="col-4">
+                <label for="inputNanme4" class="form-label">Duration</label>&nbsp; &nbsp;
+                <span *ngIf="formdata.controls.duration.touched && formdata.controls.duration.invalid" class="text-danger small">Please Enter duration</span>
+                <input type="text" class="form-control" formControlName="duration" >
+              </div>
+              <div class="col-4">
+                <label for="inputEmail4" class="form-label">MRP</label>&nbsp; &nbsp;
+                <span class="text-danger" *ngIf="formdata.controls.mrp.touched && formdata.controls.mrp.invalid">Please Enter MRP</span>
+                <input type="text" class="form-control" formControlName="mrp" >
+              </div>
+              <div class="col-4">
+                <label for="inputEmail4" class="form-label">Price</label>&nbsp; &nbsp;
+                <span class="text-danger" *ngIf="formdata.controls.price.touched && formdata.controls.price.invalid">Please Enter price</span>
+                <input type="text" class="form-control" formControlName="price" >
+              </div>
+              <!-- <div class="col-4">
+                <label for="inputEmail4" class="form-label">IsActive</label>&nbsp; &nbsp;
+                <span class="text-danger" *ngIf="formdata.controls.isactive.touched && formdata.controls.isactive.invalid">Please Enter price</span>
+                <input type="text" class="form-control" formControlName="isactive" >
+              </div> -->
+              <div class="col-6">
+                <label for="inputEmail4" class="form-label">IsActive</label>&nbsp; &nbsp;
+                <input type="checkbox" checked  formControlName="isactive" class="form-check-inline mt-3">
+              </div>
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary" [disabled]="!formdata.valid">Submit</button> &nbsp; &nbsp;
+                <span class="btn btn-secondary" (click)="load()">Reset</span>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="gototop js-top">
+          <a href="#" class="js-gotop"><i class="ion-ios-arrow-up"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Action</th>
+              <th scope="col">No</th>
+              <th scope="col">GYM Id</th>
+              <th scope="col">Name</th>
+              <th scope="col">Duration</th>
+              <th scope="col">MRP</th>
+              <th scope="col">Price</th>
+              <th scope="col">IsActive</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let plan of plans; let i = index">
+              <td>
+                  <button class="btn btn-danger btn-sm" (click)="Delete(plan.id)">Delete</button>&nbsp;&nbsp;
+                   <button class="btn btn-primary btn-sm" (click)="Edit(plan.id)">Edit</button>
+              </td>
+              <td>{{i + 1}}</td>
+              <td class="text-center">{{plan.gymid}}</td>
+              <td>{{plan.name}}</td>
+              <td>{{plan.duration}}</td>
+              <td>{{plan.mrp}}</td>
+              <td>{{plan.price}}</td>
+              <td>{{plan.isactive}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>

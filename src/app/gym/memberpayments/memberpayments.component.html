@@ -1,0 +1,110 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>Member Plan</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a>Home</a></li>
+        <li class="breadcrumb-item active">Member Plan</li>
+      </ol>
+    </nav>
+  </div>
+  <section class="section dashboard">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card mt-2">
+          <div class="card-body">
+            <form class="row g-3" [formGroup]="formdata" (ngSubmit)="Save(formdata.value)">
+              <div class="col-4">
+                <label for="inputNanme4" class="form-label">Gym</label>&nbsp; &nbsp;
+                <select class="form-control form-select" formControlName="gymid">
+                  <option value="0">--SELECT--</option>
+                  <option *ngFor="let g of gym" value="{{ g.id }}">{{ g.name }}</option>
+                </select>
+              </div>
+              <div class="col-4">
+                <label for="inputNanme4" class="form-label">Member</label>&nbsp; &nbsp;
+                <select class="form-control form-select" formControlName="memberid">
+                  <option value="0">--SELECT--</option>
+                  <option *ngFor="let m of member" value="{{ m.id }}">{{ m.name }}</option>
+                </select>
+              </div>
+              <div class="col-4">
+                <label for="inputNanme4" class="form-label">Member-Plan</label>&nbsp; &nbsp;
+                <select class="form-control form-select" formControlName="planid">
+                  <option value="0">--SELECT--</option>
+                  <option *ngFor="let mplan of memberplan" value="{{ mplan.id }}">{{ mplan.name }}</option>
+                </select>
+              </div>
+
+              <div class="col-4">
+                <label for="inputEmail4" class="form-label mb-3">Amount</label>&nbsp; &nbsp;
+                <span class="text-danger" *ngIf="formdata.controls.amount.touched && formdata.controls.amount.invalid">Please Enter Aadhar no.</span>
+                <input type="text" class="form-control" formControlName="amount" >
+              </div>
+              <div class="col-4">
+                <label for="inputEmail4" class="form-label mb-3">Paid</label>&nbsp; &nbsp;
+                <span class="text-danger" *ngIf="formdata.controls.paid.touched && formdata.controls.paid.invalid">Please Enter Address</span>
+                <input type="email" class="form-control" formControlName="paid" >
+              </div>
+              <div class="col-4">
+                <label for="inputEmail4" class="form-label">Payment Date</label>&nbsp; &nbsp; <br>
+                <mat-form-field appearance="fill" class="ms-5">
+                  <mat-label>Start Date</mat-label>
+                  <input matInput [matDatepicker]="startDatePicker" placeholder="Choose a date" formControlName="paymentdate">
+                  <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                  <mat-datepicker #startDatePicker></mat-datepicker>
+                </mat-form-field>
+
+              </div>
+
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary" [disabled]="!formdata.valid">Submit</button> &nbsp; &nbsp;
+                <span class="btn btn-dark" (click)="load()">Reset</span>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="gototop js-top">
+          <a href="#" class="js-gotop"><i class="ion-ios-arrow-up"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Action</th>
+              <th scope="col">No</th>
+              <th scope="col">Id</th>
+              <th scope="col">GYM Id</th>
+              <th scope="col">Member id</th>
+              <th scope="col">Member-Plan Id</th>
+              <th scope="col">Amount</th>
+              <th scope="col">Paid</th>
+              <th scope="col">Payment Mode</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let mpay of memberpayments; let i = index">
+              <td>
+                  <button class="btn btn-danger btn-sm mb-2" (click)="Delete(mpay.id)">Delete</button><br>
+                   <button class="btn btn-primary btn-sm" (click)="Edit(mpay.id)">Edit</button>
+              </td>
+              <td>{{i + 1}}</td>
+              <td class="text-center">{{mpay.id}}</td>
+              <td>{{mpay.gymid}}</td>
+              <td>{{mpay.memberid}}</td>
+              <td>{{mpay.memberplanid}}</td>
+              <td>{{mpay.amount}}</td>
+              <td>{{mpay.paid}}</td>
+              <td>{{mpay.paymentdate | date }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
